@@ -16,7 +16,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import TableHead from '@mui/material/TableHead';
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -87,7 +87,10 @@ export default function BasicTable({country}) {
 
   React.useEffect(() => {
         if(country.length) {
-            setRows(country)
+          const myData = country.sort((a, b) => a.name.common.localeCompare(b.name.common));
+        setRows(myData);
+        console.log("myData",myData);
+            
         } 
     
   }, [country])
@@ -115,7 +118,7 @@ export default function BasicTable({country}) {
             <TableCell align="right">Region</TableCell>
             <TableCell align="right">Population</TableCell>
             <TableCell align="right">Languages</TableCell>
-            <TableCell align="right">......</TableCell>
+            <TableCell align="right">More</TableCell>
 
           </TableRow>
         </TableHead>
@@ -126,10 +129,11 @@ export default function BasicTable({country}) {
           ).map((row) => (
             <TableRow key={row.name.official}>
               <TableCell component="th" scope="row">
-                {row.name.official}
+              <img  src= {row.flags.png} alt={"Country Flag"}/>
+               
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-              {row.name.official}
+              {row.name.common}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
               {row.region}
@@ -138,7 +142,12 @@ export default function BasicTable({country}) {
               {row.population}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-              {Object.values(row.languages)}
+              {row.languages ? Object.values(row.languages) : ""}
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              <IconButton aria-label="ArrowForwardIosIcon">
+        <ArrowForwardIosIcon />
+      </IconButton>
               </TableCell>
             </TableRow>
           ))}
