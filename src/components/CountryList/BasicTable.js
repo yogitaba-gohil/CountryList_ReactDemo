@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -88,12 +89,16 @@ export default function BasicTable({country}) {
   React.useEffect(() => {
         if(country.length) {
           const myData = country.sort((a, b) => a.name.common.localeCompare(b.name.common));
-        setRows(myData);
-        console.log("myData",myData);
-            
+          setRows(myData);   
         } 
     
   }, [country])
+  let navigate = useNavigate(); 
+  const routeChange = (name) =>{ 
+    console.log('name', name);
+    let path = `country/${name}`; 
+    navigate(path);
+  }
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -145,7 +150,7 @@ export default function BasicTable({country}) {
               {row.languages ? Object.values(row.languages) : ""}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-              <IconButton aria-label="ArrowForwardIosIcon">
+              <IconButton aria-label="ArrowForwardIosIcon" onClick={()=>routeChange(row.name.common)}>
         <ArrowForwardIosIcon />
       </IconButton>
               </TableCell>
