@@ -5,13 +5,12 @@ import CountryDetails from "./Pages/CountryDetails";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Routes>
       <Route path="/" element={ <Home/> } />
         <Route path="country/:name" element={ <CountryDetails/> } />
-        
       </Routes>
-    </div>
+    </>
   );
 }
 
