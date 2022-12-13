@@ -16,8 +16,7 @@ const CountryDetails = () => {
   useEffect(() => {
     async function fetchData() {
       if (name) {
-        const post = await getCountry(name).then((data) => {
-          console.log("data ", data);
+        await getCountry(name).then((data) => {
           return setCountryDetails(data);
         });
       }
@@ -30,13 +29,13 @@ const CountryDetails = () => {
     <div>
       <div class="container">
         <nav class="navbar navbar-expand-lg">
-          <div class="container-fluid">
+          <div class="container-fluid ">
             
             <Avatar name={countryDetails?.name?.common} maxInitials={1} className="rounded-circle bg-primary"/>
 
-            <div class="d-flex flex-column mb-3">
-              <div class="p-2">{countryDetails?.name?.common}</div>
-              <div class="p-2">{countryDetails?.capital?.[0]}</div>
+            <div class="d-flex flex-column">
+              <div class="p-2"><h1>{countryDetails?.name?.common}</h1></div>
+              <div class="p-2"><h4>{countryDetails?.capital?.[0]}</h4></div>
             </div>
             <div>
               <MoreVertIcon />
@@ -77,8 +76,12 @@ const CountryDetails = () => {
             <IconButton aria-label="ArrowForwardIosIcon" onClick={goBack}>
               <ArrowBackIosNewIcon />
             </IconButton>
-
+            <div style={{paddingLeft:"30px", paddingTop:"4px"}}>
             <PlaceIcon />
+
+            </div>
+
+            
           </div>
         </div>
       </div>
