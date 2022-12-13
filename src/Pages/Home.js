@@ -14,9 +14,11 @@ const Home = () => {
     getList().then((items) => {
       if (mounted) {
         setList(items);
+        dispatch(addCountry(items));
       }
     });
-    return () => (mounted = false);
+  
+    return () => (mounted = false); 
   }, []);
 
   return (

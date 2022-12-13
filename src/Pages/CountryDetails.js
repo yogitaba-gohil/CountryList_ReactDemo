@@ -1,35 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 import { getCountry } from "../services/countryDetails";
-import PlaceIcon from '@mui/icons-material/Place';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import PlaceIcon from "@mui/icons-material/Place";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-
 
 const CountryDetails = () => {
   const { name } = useParams();
   const [countryDetails, setCountryDetails] = useState();
   const countryList = useSelector((state) => state.countryList);
-  console.log('countryList', countryList)
-
-  
+  console.log("countryList", countryList);
 
   useEffect(() => {
     async function fetchData() {
       if (name) {
         const post = await getCountry(name).then((data) => {
-          console.log("data ", data);
           return data;
         });
         setCountryDetails(post);
       }
     }
     fetchData();
-    console.log("first", countryDetails);
-  },[name]);
+  }, [name]);
 
   return (
     <div>
@@ -48,7 +42,7 @@ const CountryDetails = () => {
           </div>
         </nav>
       </div>
-      <div class="card" style={{ width: "100%", textAlign:"center" }}>
+      <div class="card" style={{ width: "100%", textAlign: "center" }}>
         <img src="..." class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Card title</h5>
@@ -56,13 +50,10 @@ const CountryDetails = () => {
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
           </p>
-          <div className="d-flex " style={{textAlign:"start" }} >  
-          <ArrowBackIosNewIcon />
-          
+          <div className="d-flex " style={{ textAlign: "start" }}>
+            <ArrowBackIosNewIcon />
 
-          <PlaceIcon />
-          
-
+            <PlaceIcon />
           </div>
         </div>
       </div>

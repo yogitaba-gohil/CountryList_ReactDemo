@@ -82,13 +82,16 @@ TablePaginationActions.propTypes = {
 
 
 export default function BasicTable({country}) {
+  console.log('country', country.length)
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows,setRows] = React.useState([]);
 
   React.useEffect(() => {
         if(country.length) {
+          console.log('country', country)
           const myData = country.sort((a, b) => a.name.common.localeCompare(b.name.common));
+          console.log('myData', myData)
           setRows(myData);   
         } 
     

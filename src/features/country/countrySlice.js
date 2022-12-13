@@ -5,13 +5,9 @@ export const countrySlice = createSlice({
   initialState: [],
   reducers: {
     addCountry: (state, action) => {
-        console.log('action', action)
-      const country = {
-        id: "",
-        text: action.payload,
-      };
+        console.log('action', action.payload)
 
-      state.push(country);
+      state.push( ...action.payload);
   },
 }});
 
