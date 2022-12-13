@@ -23,7 +23,7 @@ const CountryDetails = () => {
     }
     fetchData();
     console.log("first", countryDetails);
-  });
+  },[name]);
 
   return (
     <div>
