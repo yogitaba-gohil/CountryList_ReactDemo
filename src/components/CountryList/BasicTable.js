@@ -83,21 +83,21 @@ TablePaginationActions.propTypes = {
 };
 
 
-export default function BasicTable({country, searchValue}) {
-  console.log('country', country)
+export default function BasicTable({ searchValue}) {
+  const countryList = useSelector((state) => state.countryList);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows,setRows] = React.useState([]);
-  const countryList = useSelector((state) => state.countryList);
-  console.log("countryList", countryList);
+  
 
+ 
   React.useEffect(() => {
-        if(country.length) {
-          const myData = country.sort((a, b) => a.name.common.localeCompare(b.name.common));
+        if(countryList.length) {
+          const myData = countryList.slice().sort((a, b) => a.name.common.localeCompare(b.name.common));
           setRows(myData);   
         } 
     
-  }, [country])
+  }, [countryList])
   let navigate = useNavigate(); 
   const routeChange = (name) =>{ 
     let path = `country/${name}`; 
