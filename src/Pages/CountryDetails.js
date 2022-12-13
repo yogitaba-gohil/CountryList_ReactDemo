@@ -16,14 +16,15 @@ const CountryDetails = () => {
       if (name) {
         const post = await getCountry(name).then((data) => {
           console.log("data ", data);
-          return data;
+          return setCountryDetails(data);;
         });
-        setCountryDetails(post);
+        
       }
     }
     fetchData();
-    console.log("first", countryDetails);
+    
   },[name]);
+  console.log("first", countryDetails);
 
   return (
     <div>
@@ -33,8 +34,9 @@ const CountryDetails = () => {
             <img src="..." class="rounded-circle bg-primary" alt="..." />
 
             <div class="d-flex flex-column mb-3">
-              <div class="p-2">AFGHANISTAN</div>
-              <div class="p-2">Kabul</div>
+              <div class="p-2">{countryDetails?.name?.common}</div>
+              <div class="p-2">{countryDetails?.capital?.[0]}</div>
+              
             </div>
             <div>
               <MoreVertIcon />
@@ -43,12 +45,16 @@ const CountryDetails = () => {
         </nav>
       </div>
       <div class="card" style={{ width: "100%", textAlign:"center" }}>
-        <img src="..." class="card-img-top" alt="..." />
+        <div style={{ width: "100%" }}>
+
+        <img src={countryDetails?.flags?.png} class="card-img-top"  alt="..." style={{ width: "50%" }} />
+        </div>
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
+          
           <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            The country belongs to <text style={{color:"blue"}}>{countryDetails?.region}</text> region and <text style={{color:"blue"}}>{countryDetails?.subregion}</text> sub-region<br />
+            Located at the <text style={{color:"blue"}}>{countryDetails?.latlng[0]}°N</text> and <text style={{color:"blue"}}>{countryDetails?.latlng[1]}°W</text>,  this country has population of <text style={{color:"blue"}}>{countryDetails?.population}</text><br />
+            and it has gained the independent, according to the CIA World FactBook
           </p>
           <div className="d-flex " style={{textAlign:"start" }} >  
           <ArrowBackIosNewIcon />
