@@ -1,40 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { getCountry } from "../services/countryDetails";
 import PlaceIcon from "@mui/icons-material/Place";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import IconButton from "@mui/material/IconButton";
+import Avatar from 'react-avatar';
+import Tooltip from '@mui/material/Tooltip';
 
 const CountryDetails = () => {
   const { name } = useParams();
   const [countryDetails, setCountryDetails] = useState();
-  const countryList = useSelector((state) => state.countryList);
-  console.log("countryList", countryList);
+  // const countryList = useSelector((state) => state.countryList);
+  // console.log("countryList", countryList);
 
   useEffect(() => {
     async function fetchData() {
       if (name) {
-        const post = await getCountry(name).then((data) => {
-          return data;
+        await getCountry(name).then((data) => {
+          return setCountryDetails(data);
         });
-        setCountryDetails(post);
       }
     }
     fetchData();
   }, [name]);
-
+  let navigate = useNavigate();
+  const goBack = () => navigate(-1);
   return (
     <div>
       <div class="container">
         <nav class="navbar navbar-expand-lg">
-          <div class="container-fluid">
-            <img src="..." class="rounded-circle bg-primary" alt="..." />
+          <div class="container-fluid ">
+            
+            <Avatar name={countryDetails?.name?.common} maxInitials={1} className="rounded-circle bg-primary"/>
 
-            <div class="d-flex flex-column mb-3">
-              <div class="p-2">AFGHANISTAN</div>
-              <div class="p-2">Kabul</div>
+            <div class="d-flex flex-column">
+              <div class="p-2"><h1>{countryDetails?.name?.common}</h1></div>
+              <div class="p-2"><h4>{countryDetails?.capital?.[0]}</h4></div>
             </div>
             <div>
               <MoreVertIcon />
@@ -43,17 +46,48 @@ const CountryDetails = () => {
         </nav>
       </div>
       <div class="card" style={{ width: "100%", textAlign: "center" }}>
-        <img src="..." class="card-img-top" alt="..." />
+        <div style={{ width: "100%" }}>
+          <img
+            src={countryDetails?.flags?.png}
+            class="card-img-top"
+            alt="..."
+            style={{ width: "50%" }}
+          />
+        </div>
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
           <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            The country belongs to{" "}
+            <text style={{ color: "blue" }}>{countryDetails?.region}</text>{" "}
+            region and{" "}
+            <text style={{ color: "blue" }}>{countryDetails?.subregion}</text>{" "}
+            sub-region
+            <br />
+            Located at the{" "}
+            <text style={{ color: "blue" }}>
+              {countryDetails?.latlng[0]}°N
+            </text>{" "}
+            and{" "}
+            <text style={{ color: "blue" }}>{countryDetails?.latlng[1]}°W</text>
+            , this country has population of{" "}
+            <text style={{ color: "blue" }}>{countryDetails?.population}</text>
+            <br />
+            and it has gained the independent, according to the CIA World
+            FactBook
           </p>
           <div className="d-flex " style={{ textAlign: "start" }}>
-            <ArrowBackIosNewIcon />
-
+            <IconButton aria-label="ArrowForwardIosIcon" onClick={goBack}>
+              <ArrowBackIosNewIcon />
+            </IconButton>
+            <div style={{paddingLeft:"30px", paddingTop:"4px"}}>
+            <Tooltip title={countryDetails?.latlng[0] + " °N " + countryDetails?.latlng[1]+ " °W "  }>
+            <IconButton>
             <PlaceIcon />
+            </IconButton>
+
+            </Tooltip>
+            </div>
+
+            
           </div>
         </div>
       </div>

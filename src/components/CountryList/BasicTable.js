@@ -98,7 +98,6 @@ export default function BasicTable({country}) {
   }, [country])
   let navigate = useNavigate(); 
   const routeChange = (name) =>{ 
-    console.log('name', name);
     let path = `country/${name}`; 
     navigate(path);
   }
