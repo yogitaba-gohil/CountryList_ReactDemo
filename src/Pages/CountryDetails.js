@@ -7,6 +7,8 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import Avatar from 'react-avatar';
+import Tooltip from '@mui/material/Tooltip';
+
 
 
 const CountryDetails = () => {
@@ -77,8 +79,12 @@ const CountryDetails = () => {
               <ArrowBackIosNewIcon />
             </IconButton>
             <div style={{paddingLeft:"30px", paddingTop:"4px"}}>
+            <Tooltip title={countryDetails?.latlng[0] + " °N " + countryDetails?.latlng[1]+ " °W "  }>
+            <IconButton>
             <PlaceIcon />
+            </IconButton>
 
+            </Tooltip>
             </div>
 
             
