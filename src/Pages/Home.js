@@ -7,7 +7,13 @@ import { getList } from "../services/list";
 
 const Home = () => {
   const [list, setList] = useState([]);
+  const [searchValue, setSearchValue] = useState("")
+
   const dispatch = useDispatch();
+  const  handleChange = (event) => {
+    setSearchValue(event);
+  }
+console.log('searchValue', searchValue)
 
   useEffect(() => {
     let mounted = true;
@@ -23,8 +29,8 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
-      <CountryList list={list} />
+      <Header handleChange={handleChange} />
+      <CountryList list={list} searchValue={searchValue}  />
     </div>
   );
 };

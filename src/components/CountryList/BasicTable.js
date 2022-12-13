@@ -18,6 +18,8 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import TableHead from '@mui/material/TableHead';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useSelector } from 'react-redux';
+
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -81,17 +83,17 @@ TablePaginationActions.propTypes = {
 };
 
 
-export default function BasicTable({country}) {
-  console.log('country', country.length)
+export default function BasicTable({country, searchValue}) {
+  console.log('country', country)
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows,setRows] = React.useState([]);
+  const countryList = useSelector((state) => state.countryList);
+  console.log("countryList", countryList);
 
   React.useEffect(() => {
         if(country.length) {
-          console.log('country', country)
           const myData = country.sort((a, b) => a.name.common.localeCompare(b.name.common));
-          console.log('myData', myData)
           setRows(myData);   
         } 
     
@@ -131,7 +133,7 @@ export default function BasicTable({country}) {
         </TableHead>
         <TableBody>
           {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            ? rows.filter(row => row.name.common.match(new RegExp(searchValue, "i"))).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
             <TableRow key={row.name.official}>

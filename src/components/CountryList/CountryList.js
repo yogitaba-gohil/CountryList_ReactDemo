@@ -1,9 +1,9 @@
 import React from 'react'
 import BasicTable from './BasicTable'
 
-const CountryList = ({list}) => {
+const CountryList = ({list, searchValue}) => {
   return (
-    <div><BasicTable country={list} />
+    <div><BasicTable country={list} searchValue={searchValue}/>
     </div>
   )
 }

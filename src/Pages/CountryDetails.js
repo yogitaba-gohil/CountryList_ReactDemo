@@ -8,12 +8,14 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import Avatar from 'react-avatar';
 import Tooltip from '@mui/material/Tooltip';
+import { useSelector } from 'react-redux';
+
 
 const CountryDetails = () => {
   const { name } = useParams();
   const [countryDetails, setCountryDetails] = useState();
-  // const countryList = useSelector((state) => state.countryList);
-  // console.log("countryList", countryList);
+  const countryList = useSelector((state) => state.countryList);
+  console.log("countryList", countryList);
 
   useEffect(() => {
     async function fetchData() {
