@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
+
 import { getCountry } from "../services/countryDetails";
 import PlaceIcon from '@mui/icons-material/Place';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -10,6 +12,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 const CountryDetails = () => {
   const { name } = useParams();
   const [countryDetails, setCountryDetails] = useState();
+  const countryList = useSelector((state) => state.countryList);
+  console.log('countryList', countryList)
+
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -23,7 +29,7 @@ const CountryDetails = () => {
     }
     fetchData();
     console.log("first", countryDetails);
-  });
+  },[name]);
 
   return (
     <div>
