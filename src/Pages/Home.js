@@ -19,15 +19,18 @@ console.log('searchValue', searchValue)
 
   useEffect(() => {
     let mounted = true;
-    getList().then((items) => {
-      if (mounted) {
-        dispatch(addCountry(items));
+   
 
-      }
-    });
+      getList().then((items) => {
+        if (mounted) {
+          dispatch(addCountry(items));
+  
+        }
+      });
+    
   
     return () => (mounted = false); 
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

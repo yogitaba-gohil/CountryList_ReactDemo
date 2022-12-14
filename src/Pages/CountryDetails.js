@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { getCountry } from "../services/countryDetails";
 import PlaceIcon from "@mui/icons-material/Place";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -27,8 +26,12 @@ const CountryDetails = () => {
     }
     fetchData();
   }, [name]);
-  let navigate = useNavigate();
-  const goBack = () => navigate(-1);
+
+  const goBack = () =>{ 
+    let nextURL = `/`; 
+    // navigate(path);
+    window.location.replace(nextURL);
+  }
   return (
     <div>
       <div class="container">
